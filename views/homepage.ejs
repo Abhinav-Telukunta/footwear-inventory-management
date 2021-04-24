@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>
+            Inventory Management
+        </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1 class="c1">Fashion Feet Inventory Management</h1>
+        <a href="/adddata" class="anchor"><h3 class="c2">Add a product</h3></a>
+        <a href="/updatedata" class="anchor"><h3 class="c2">Update a product</h3></a>
+        <a href="/deletedata" class="anchor"><h3 class="c2">Delete a product</h3></a>
+        <h4 class="c3">
+            This footwear inventory keeps track of the types of footwear, their categories, brands, size, 
+            how many are available, price etc. This is a dynamic website. We can add the products if it is not 
+            yet added , increase or decrease the stock for a particular product and delete the product if 
+            it is no longer available. Supports CRUD operations.
+        </h4>
+        <center>
+            <table id="table">
+                <tr>
+                    <th>Product Id</th>
+                    <th>Product type</th>
+                    <th>Brand</th>
+                    <th>Size</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                </tr>
+                <% for(var i=0;i<data.length;++i) { %>
+                <tr>
+                <td><%= data[i].pid %></td>
+                <td><%= data[i].product_type %></td>
+                    <td><%= data[i].brand %></td>
+                    <td><%= data[i].size %></td>
+                    <td><%= data[i].stock %></td>
+                    <td><%= data[i].price %></td>
+                </tr>
+                <% } %>
+            </table>
+        </center>
+    </body>
+</html>
