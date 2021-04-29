@@ -26,22 +26,52 @@ app.get("/",(req,res)=>{
     });
 });
 
+app.get("/editdata",(req,res)=>{
+    db.collection("ladies").find({pid:req.query.pid}).toArray((err,result)=>{
+        if(err) return console.log(err);
+        res.render("edit.ejs",{data:result});
+    });
+    
+});
+
 app.get("/updatedata",(req,res)=>{
     res.render("update.ejs");
+    
 });
 
 app.get("/adddata",(req,res)=>{
     res.render("add.ejs");
 });
 
+app.get("/salesdetails",(req,res)=>{
+    db.collection("sales").find().toArray((err,result)=>{
+        if(err) return console.log(err);
+        res.render("salesdetails.ejs",{data:result});
+    });
+});
+
 app.get("/deletedata",(req,res)=>{
-    res.render("delete.ejs");
+    db.collection("ladies").find({pid:req.query.pid}).toArray((err,result)=>{
+        if(err) return console.log(err);
+        res.render("delete.ejs",{data:result});
+    });
 });
 
 app.post('/add',(req,res)=>{
     db.collection("ladies").save(req.body,(err,result)=>{
         if(err) return console.log(err);
         res.redirect("/");
+    });
+});
+
+app.post('/edit',(req,res)=>{
+    var edited=parseInt(req.body.new_stock);
+    db.collection("ladies").findOneAndUpdate({pid:req.body.id},{
+        $set:{stock: edited.toString()}},{sort: {_id:-1}},
+        (err,result)=>{
+            if(err) return console.log(error);
+            console.log(req.body.id+" stock edited");
+            res.redirect("/");
     });
 });
 
@@ -71,3 +101,4 @@ app.post('/delete',(req,res)=>{
         res.redirect("/");
     });
 });
+
